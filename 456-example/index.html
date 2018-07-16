@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Responsive scrollable tables – demo page | Lab | 456 Berea Street</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+	@import 'lab.css';
+	#body {
+		padding:0 20px;
+	}
+
+	/* Basic table styling */
+	table {
+		width:100%;
+		border-spacing:0;
+		border-collapse:collapse;
+	}
+	table,
+	th,
+	td {
+		border:1px solid #ccc;
+	}
+	th,
+	td {
+		padding:6px 8px;
+		vertical-align:top;
+	}
+	caption,
+	th {
+		font-weight:bold;
+		text-align:left;
+	}
+	thead th {
+		background:#f3f3f3;
+		white-space:nowrap;
+	}
+
+	/* Scrollable table styling */
+	.scrollable.has-scroll {
+		position:relative;
+		overflow:hidden; /* Clips the shadow created with the pseudo-element in the next rule. Not necessary for the actual scrolling. */
+	}
+	.scrollable.has-scroll:after {
+		position:absolute;
+		top:0;
+		left:100%;
+		width:50px;
+		height:100%;
+		border-radius:10px 0 0 10px / 50% 0 0 50%;
+		box-shadow:-5px 0 10px rgba(0, 0, 0, 0.25);
+		content:'';
+	}
+
+	/* This is the element whose content will be scrolled if necessary */
+	.scrollable.has-scroll > div {
+		overflow-x:auto;
+	}
+
+	/* Style the scrollbar to make it visible in iOS, Android and OS X WebKit browsers (where user preferences can make scrollbars invisible until you actually scroll) */
+	.scrollable > div::-webkit-scrollbar {
+		height:12px;
+	}
+	.scrollable > div::-webkit-scrollbar-track {
+		box-shadow:0 0 2px rgba(0,0,0,0.15) inset;
+		background:#f0f0f0;
+	}
+	.scrollable > div::-webkit-scrollbar-thumb {
+		border-radius:6px;
+		background:#ccc;
+	}
+
+	</style>
+	<script src="jquery-1.12.2.min.js"></script>
+	<script>
+	// Run on window load in case images or other scripts affect element widths
+	$(window).on('load', function() {
+		// Check all tables. You may need to be more restrictive.
+		$('table').each(function() {
+			var element = $(this);
+			// Create the wrapper element
+			var scrollWrapper = $('<div />', {
+				'class': 'scrollable',
+				'html': '<div />' // The inner div is needed for styling
+			}).insertBefore(element);
+			// Store a reference to the wrapper element
+			element.data('scrollWrapper', scrollWrapper);
+			// Move the scrollable element inside the wrapper element
+			element.appendTo(scrollWrapper.find('div'));
+			// Check if the element is wider than its parent and thus needs to be scrollable
+			if (element.outerWidth() > element.parent().outerWidth()) {
+				element.data('scrollWrapper').addClass('has-scroll');
+			}
+			// When the viewport size is changed, check again if the element needs to be scrollable
+			$(window).on('resize orientationchange', function() {
+				if (element.outerWidth() > element.parent().outerWidth()) {
+					element.data('scrollWrapper').addClass('has-scroll');
+				} else {
+					element.data('scrollWrapper').removeClass('has-scroll');
+				}
+			});
+		});
+	});
+	</script>
+</head>
+<body>
+<div id="body">
+    <h1>Responsive scrollable tables – demo page</h1>
+    <div class="scrollable has-scroll"><div><table>
+      <caption>Data table 1</caption>
+      <thead>
+        <tr>
+          <th scope="col">Column header 1</th>
+          <th scope="col">Column header 2</th>
+          <th scope="col">Column header 3</th>
+          <th scope="col">Column header 4</th>
+          <th scope="col">Column header 5</th>
+          <th scope="col">Column header 6</th>
+          <th scope="col">Column header 7</th>
+          <th scope="col">Column header 8</th>
+          <th scope="col">Column header 9</th>
+          <th scope="col">Column header 10</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+        </tr>
+        <tr>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+        </tr>
+        <tr>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+        </tr>
+        <tr>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+        </tr>
+        <tr>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+        </tr>
+        <tr>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+        </tr>
+        <tr>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+        </tr>
+        <tr>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+        </tr>
+        <tr>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+        </tr>
+        <tr>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+        </tr>
+        <tr>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+          <td>Table data</td>
+        </tr>
+      </tbody>
+    </table></div></div>
+  </div>
+</body>
+</html>
